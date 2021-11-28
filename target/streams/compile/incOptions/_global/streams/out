@@ -1,0 +1,39 @@
+[0m[[0m[0mdebug[0m] [0m[0mCreated transactional ClassFileManager with tempDir = C:\Users\milou\Desktop\Milou\MA1\FoS\DolevYaoPingpong\target\scala-3.0.2\classes.bak[0m
+[0m[[0m[0mdebug[0m] [0m[0mAbout to delete class files:[0m
+[0m[[0m[0mdebug[0m] [0m[0mWe backup class files:[0m
+[0m[[0m[0mdebug[0m] [0m[0mRegistering generated classes:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	R$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Desindex$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Participants.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Operation.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Index$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Decrypt$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Encrypt$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	R.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Desindex.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Z.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	DolevYao.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	S.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Encrypt.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	S$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Index.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Decrypt.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Z$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	R$.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Desindex$.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Participants.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Operation.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Index$.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Decrypt$.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Encrypt$.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	R.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Desindex.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Z.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	DolevYao.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	S.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Encrypt.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	S$.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Index.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Decrypt.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Z$.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0mRemoving the temporary directory used for backing up class files: C:\Users\milou\Desktop\Milou\MA1\FoS\DolevYaoPingpong\target\scala-3.0.2\classes.bak[0m
