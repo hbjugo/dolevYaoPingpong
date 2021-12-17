@@ -4,7 +4,7 @@ import java.io.{BufferedReader, InputStreamReader}
 import scala.util.parsing.combinator.syntactical.StandardTokenParsers
 import scala.util.parsing.input.*
 
-object DolevYao extends StandardTokenParsers {
+object DolevYaoParser extends StandardTokenParsers {
 
   lexical.reserved ++= List("Er", "Es", "Ez", "Dr", "Ds", "Dz", "dr", "ds", "dz", "ir", "is", "iz", "d")
 
@@ -32,7 +32,7 @@ object DolevYao extends StandardTokenParsers {
     "ir" ^^^ Index(R, Identity) |
     "is" ^^^ Index(S, Identity) |
     "iz" ^^^ Index(Z, Identity) |
-    "λ" ^^^ Identity
+    "λ"  ^^^ Identity
 
   case class UnknownOperation(operation: Operation) extends Exception(operation.toString)
 
