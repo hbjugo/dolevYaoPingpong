@@ -58,6 +58,23 @@ object DolevYaoParser extends StandardTokenParsers {
       case NoRuleApplies(_) =>
         LazyList.cons(o, LazyList.empty)
 
+  def parseString(s: String): Option[Operation] = {
+    val tokens = new lexical.Scanner(s)
+    phrase(operation)(tokens) match
+      case Success(trees, _) =>
+        try {
+          // Extract the reduction path.
+          val reductionPath = path(trees, reduce)
+          // Return the most reduced.
+          return Some(reductionPath.last)
+        }
+        catch
+          case tpError: Exception => println(tpError.toString)
+
+      case e => println(e)
+      return None
+  }
+
   def main(args: Array[String]): Unit =
     val stdin = new BufferedReader(new InputStreamReader(System.in))
     val tokens = new lexical.Scanner(stdin.readLine())
