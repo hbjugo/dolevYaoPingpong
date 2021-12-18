@@ -5,19 +5,19 @@ class Automaton {
   var edges: Set[(Int, Int, String)] = Set()
   var lastIntermediateState: Int = 0
 
+  // Returns a new intermediate state.
   private def newIntermediateState: Int = {
     lastIntermediateState += 1
     lastIntermediateState - 1
   }
 
-  private def operationEdgeRepresentation(op: Operation): String = {
-    op match {
-      case Encrypt(participant, _) => "E" + participant
-      case Decrypt(participant, _) => "D" + participant
-      case Index(participant, _) => "i" + participant
-      case Desindex(participant, _) => "d" + participant
-      case Identity => Identity.toString
-    }
+  // Converts an operation to a label. Since the operations are defined as a linked list, we only consider the head.
+  private def operationEdgeRepresentation(op: Operation): String = op match {
+    case Encrypt(participant, _) => "E" + participant
+    case Decrypt(participant, _) => "D" + participant
+    case Index(participant, _) => "i" + participant
+    case Desindex(participant, _) => "d" + participant
+    case Identity => Identity.toString
   }
 
   // (startState = a, finalState = b, op) => (a, 1, op[0]), (1, 2, op[1]), ... , (n-1, n, op[n-2]), (n, b, op[n-1])
