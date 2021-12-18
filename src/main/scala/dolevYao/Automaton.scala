@@ -2,7 +2,7 @@ package dolevYao
 
 class Automaton {
 
-  var paths: Set[(Int, Int, String)] = Set()
+  var edges: Set[(Int, Int, String)] = Set()
   var lastIntermediateState: Int = 0
 
   private def newIntermediateState: Int = {
@@ -28,6 +28,8 @@ class Automaton {
       case Decrypt(_, innerOperation) => innerOperation == Identity
       case Index(_, innerOperation) => innerOperation == Identity
       case Desindex(_, innerOperation) => innerOperation == Identity
+      // Cannot build a path from an identity operation.
+      case Identity => return List.empty
     }
     if lastOperation then (startState, finalState, edgeLabel) :: Nil else {
       val nextState = newIntermediateState
@@ -51,13 +53,22 @@ class Automaton {
     if lastIntermediateState <= toState then lastIntermediateState = toState + 1
     // Generate the path.
     val generatedPath = buildPath(fromState, toState, operation)
-    // If the operation is a valid operation for Z, then it ca
-    paths = paths ++ generatedPath
+    edges = edges ++ generatedPath
     generatedPath
   }
-  // Returns whether a direct path from fromState to toState exists with the given label.
-  def pathExists(fromState: Int, toState: Int, label: String): Boolean = paths.contains((fromState, toState, label))
-  override def toString: String = paths.map(p => p.toString()).mkString("\n")
+  // Returns whether a direct edge from fromState to toState exists with the given label.
+  def edgeExists(fromState: Int, toState: Int, label: String): Boolean = edges.contains((fromState, toState, label))
+  // Returns the number of states.
+  // Assuming that states are successive, starting from 0.
+  def numStates: Int = edges.flatMap(triplet => List(triplet._1, triplet._2)).max + 1
+  // Returns an empty matrix representing SxS where S is the set of states.
+  // Assuming that states are successive, starting from 0.
+  def extractMatrix: Array[Array[Boolean]] = Array.ofDim(numStates + 1, numStates + 1)
+  // For a given i, finds an edge (k, i, label) for some k, label.
+  def findWithNextState(nextState: Int): Option[(Int, Int, String)] = edges.find(e => e._2 == nextState)
+  // For a given j, finds an edge (j, l, label) for some l, label.
+  def findWithPrevState(prevState: Int): Option[(Int, Int, String)] = edges.find(e => e._1 == prevState)
+  override def toString: String = edges.map(p => p.toString()).mkString("\n")
 }
 
 object AutomatonTest {
