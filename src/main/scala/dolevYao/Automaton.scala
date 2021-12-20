@@ -77,15 +77,6 @@ class Automaton {
   // For a given j, finds an edge (j, l, label) for some l, label.
   def findWithPrevState(prevState: Int): Option[(Int, Int, Operator)] = edges.find(e => e._1 == prevState)
 
-  // Give the automaton as a matrix
-  def toMatrix(): Array[Array[Boolean]] =
-    // A better implementation is probably possible
-    Range(0, numStates+1).map(i =>
-      Range(0, numStates+1).map(j =>
-        edges.find { case (from, to , label) => from == i && to == j }.isDefined
-      ).toArray
-    ).toArray
-
   override def toString: String = edges.map(p => p.toString()).mkString("\n")
 }
 

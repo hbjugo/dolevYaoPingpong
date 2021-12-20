@@ -75,6 +75,4 @@ object dolevYaoAlgorithm {
     )
 
     ! collapsingRelation(0)(1)
-
-  //def constructCollapsingRelation(matrix: Matrix): Matrix = ???
 }

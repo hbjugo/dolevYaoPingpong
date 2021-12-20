@@ -19,6 +19,11 @@ object Main {
       // Until a newline is presented.
       .takeWhile((_, input) => input.nonEmpty)
       .toList
+    verify(protocolInput)
+  }
+
+}
+  def verify(protocolInput: List[(Participant, String)]): Boolean = {
     print("Parsing...")
     // Parse the operations and convert into a protocol step.
     val protocolSteps: List[ProtocolStep] = protocolInput.map((participant, input) =>
@@ -33,7 +38,7 @@ object Main {
     val protocol = Protocol(protocolSteps)
     if(!protocol.isValidProtocol) {
       println("Invalid protocol. Aborting.")
-      return
+      throw Exception("Invalid protocol. Aborting.")
     }
     println("OK!")
     println(protocol)
@@ -78,5 +83,6 @@ object Main {
       println("Protocol secure under Dolev-Yao")
     else
       println("Protocol not secure")
+
+    secure
   }
-}
