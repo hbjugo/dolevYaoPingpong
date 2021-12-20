@@ -13,6 +13,7 @@ def isValidOperation(sender: Participant, operation: Operation): Boolean = opera
   // Decryption keys are only known by the corresponding sender.
   case Decrypt(p, innerOperation) =>
     (p == sender) && isValidOperation(sender, innerOperation)
+  case Delete(innerOperation) => isValidOperation(sender, innerOperation)
   // Base case.
   case Identity => true
 }
@@ -25,6 +26,7 @@ def replayedOperation(operation: Operation, oldSender: Participant, newSender: P
     case Decrypt(p, innerOperation) => Decrypt(replaced(p), replayedOperation(innerOperation, oldSender, newSender, newReceiver))
     case Desindex(p, innerOperation) => Desindex(replaced(p), replayedOperation(innerOperation, oldSender, newSender, newReceiver))
     case Index(p, innerOperation) => Index(replaced(p), replayedOperation(innerOperation, oldSender, newSender, newReceiver))
+    case Delete(innerOperation) => Delete(replayedOperation(innerOperation, oldSender, newSender, newReceiver))
     // Base case.
     case Identity => Identity
   }

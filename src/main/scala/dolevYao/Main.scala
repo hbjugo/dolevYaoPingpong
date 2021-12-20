@@ -41,13 +41,14 @@ object Main {
     println("Constructing the automaton...")
     val automaton = Automaton()
     // Add the single path from 0 to 1.
-    automaton.addNewPath(0, 1, protocol.steps.head.operation)
+    val addedPaths = automaton.addNewPath(0, 1, protocol.steps.head.operation)
     val participants = Set(S, R, Z)
     // Add the saboteur words.
     val saboteurWords = Set(Decrypt(Z, Identity))
       ++ participants.map(p => Encrypt(p, Identity))
       ++ participants.map(p => Desindex(p, Identity))
       ++ participants.map(p => Index(p, Identity))
+      ++ participants.map(p => Delete(Identity))
     for(sw <- saboteurWords) {
       automaton.addNewPath(0, 0, sw)
     }
@@ -70,5 +71,12 @@ object Main {
       }
     }
     println(automaton)
+
+    val secure = dolevYaoAlgorithm.isSecure(automaton)
+
+    if secure then
+      println("Protocol secure under Dolev-Yao")
+    else
+      println("Protocol not secure")
   }
 }

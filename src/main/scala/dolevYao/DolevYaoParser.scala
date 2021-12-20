@@ -10,12 +10,14 @@ object DolevYaoParser extends StandardTokenParsers {
 
   def operation: Parser[Operation] =
     rep(uniqueOperation) ^^ (_.foldRight(Identity.asInstanceOf[Operation])((o1, o2) =>
+      // FIXME
       (o1, o2) match
         case (Encrypt(p, Identity), _) => Encrypt(p, o2)
         case (Decrypt(p, Identity), _) => Decrypt(p, o2)
         case (Desindex(p, Identity), _) => Desindex(p, o2)
         case (Index(p, Identity), _) => Index(p, o2)
         case (Identity, _) => o2
+        case (Delete(Identity), _) => Delete(o2)
         case _ => throw UnknownOperation(o1)
     ))
 
@@ -32,6 +34,7 @@ object DolevYaoParser extends StandardTokenParsers {
     "ir" ^^^ Index(R, Identity) |
     "is" ^^^ Index(S, Identity) |
     "iz" ^^^ Index(Z, Identity) |
+    "d"  ^^^ Delete(Identity) |
     "λ"  ^^^ Identity
 
   case class UnknownOperation(operation: Operation) extends Exception(operation.toString)
@@ -43,11 +46,13 @@ object DolevYaoParser extends StandardTokenParsers {
       case Encrypt(participant1, Decrypt(participant2, operation)) if (participant1 == participant2) => operation
       case Decrypt(participant1, Encrypt(participant2, operation)) if (participant1 == participant2) => operation
       case Desindex(participant1, Index(participant2, operation)) if (participant1 == participant2) => operation
+      case Delete(Index(_, operation)) => operation
       case Encrypt(participant, operation) => Encrypt(participant, reduce(operation))
       case Decrypt(participant, operation) => Decrypt(participant, reduce(operation))
       case Desindex(participant, operation) => Desindex(participant, reduce(operation))
       case Index(participant, operation) => Index(participant, reduce(operation))
-      case _ => throw NoRuleApplies(operation)
+      case Delete(operation) => Delete(reduce(operation))
+      case Identity => throw NoRuleApplies(operation)
 
 
   def path(o: Operation, reduce: Operation => Operation): LazyList[Operation] =
