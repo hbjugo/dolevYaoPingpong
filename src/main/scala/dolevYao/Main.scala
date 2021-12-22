@@ -77,12 +77,15 @@ object Main {
     }
     println(automaton)
 
-    val secure = dolevYaoAlgorithm.isSecure(automaton)
+    val (secure, collapsingPath) = DolevYaoAlgorithm.isSecure(automaton)
 
     if secure then
       println("Protocol secure under Dolev-Yao")
-    else
-      println("Protocol not secure")
+    else {
+      println("Protocol not secure under Dolev-Yao")
+      val pathRepr = collapsingPath.getOrElse(List.empty).map(_.toString).mkString(" ")
+      println("The adversary can compose: " + pathRepr + " = " + IdentityOperator().toString)
+    }
 
     secure
   }
