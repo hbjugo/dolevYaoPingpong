@@ -49,20 +49,14 @@ object DolevYaoAlgorithm {
       ).foreach{ case (k,l) =>
         val sigmas: List[Operator] = automaton.edgeLabel(k, i)
         val thetas: List[Operator] = automaton.edgeLabel(j, l)
-        val zipped: List[(Operator, Operator)] = (for sigma <- sigmas;
+        (for sigma <- sigmas;
           theta <- thetas
           yield (sigma,theta)
-        )
-        val found: Option[(Operator, Operator)] = zipped.find {
+        ).find {
           case (sigma, theta) =>
-            val op = sigma(theta(Identity))
-            //println(op)
-            val res: Boolean = reduceAll(op) == Identity
-            res
-        }
-        found.map { 
+            reduceAll(sigma(theta(Identity))) == Identity
+        }.foreach{
           case (sigma, theta) =>
-            //println(f"${i}, ${j}, ${k}, ${l}")
             collapsingRelation.extendBoth(i, j, k, l, sigma, theta)
             queue.enqueue((k,l))
         }
